@@ -40,8 +40,8 @@ train_iq.fillna(method='ffill', inplace=True)
 X_sj = train_sj.drop(columns='total_cases')
 y_sj = train_sj['total_cases']
 
-X_iq = train_sj.drop(columns='total_cases')
-y_iq = train_sj['total_cases']
+X_iq = train_iq.drop(columns='total_cases')
+y_iq = train_iq['total_cases']
 
 mae, predictions_sj = pipeline(X_sj, y_sj, test_sj, categorical_vars=['weekofyear'])
 
