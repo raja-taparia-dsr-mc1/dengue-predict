@@ -61,7 +61,7 @@ predictions_cat = np.concatenate((predictions_sj.mean(axis=0), predictions_iq.me
 print(f"MAE for San Juan: XGB: {mae_sj_xgb}, LGBM: {mae_sj_lgbm}, CAT: {mae_sj_cat}, MAE for Iquitos: XGB: {mae_iq_xgb}, LGBM: {mae_iq_lgbm}, CAT: {mae_iq_cat}")
 
 
-# Prepare submission (XGB model gives best results when submitting)
+### Prepare submission (XGB model gives best results when submitting)
 
 submission_df['total_cases'] = predictions_xgb
 
