@@ -31,7 +31,7 @@ def pipeline(X: pd.DataFrame, y: pd.DataFrame, X_test: pd.DataFrame, categorical
     if model == 'lgbm':
         estimator = lgb.LGBMRegressor(learning_rate=learning_rate, n_estimators=100, max_depth=5, num_leaves=10, min_data_in_leaf=5, random_state=42)
     elif model == 'xgb':
-        estimator = xgb.XGBRegressor(max_depth=5, learning_rate=learning_rate, n_estimators=100, num_leaves=10, min_data_in_leaf=5, random_state=42)
+        estimator = xgb.XGBRegressor(learning_rate=learning_rate, n_estimators=100, max_depth=4, num_leaves=10, min_data_in_leaf=5, random_state=42)
     else:
         estimator = cb.CatBoostRegressor(learning_rate=learning_rate, n_estimators=100, max_depth=5, min_data_in_leaf=5, random_state=42)
         
