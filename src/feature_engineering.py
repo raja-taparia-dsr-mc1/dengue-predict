@@ -12,21 +12,23 @@ import math
 def feature_engineering(data, train=True, city='San Juan'):
     
     data.fillna(method='ffill', inplace=True)
-        
+    
+    # feature engineering for first city    
     if city == 'San Juan':
         data = data[data.city=='sj']
        
         data["cos_weekofyear"] = data["weekofyear"].apply(lambda x: np.cos(2 * math.pi * (x-1) / 52))
-            
+    
+    # feature engineering for second city
     else:
         data = data[data.city=='iq']
 
         for c, l in zip(['reanalysis_specific_humidity_g_per_kg', 'reanalysis_dew_point_temp_k', 'reanalysis_precip_amt_kg_per_m2'], [4,4,4]):
             data[c+'_rolling'+str(l)] = data[c].rolling(l).mean()
             
-   
         data['month'] = pd.to_datetime(data.week_start_date).dt.month
-        
+    
+    # train and test
     if train:
         X = data.drop(columns='total_cases')
         y = data['total_cases']
