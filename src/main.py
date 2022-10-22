@@ -10,7 +10,7 @@ import numpy as np
 from pipeline_adv import pipeline
 from feature_engineering import feature_engineering
 
-data_path = 'C:/Users/hanne/dengue-predict/data/'
+data_path = '/home/jan/Documents/Study/DSR/dengue-predict/data/'
 
 train = pd.read_csv(data_path+'dengue_features_train.csv')
 
@@ -51,7 +51,7 @@ predictions_cat = np.concatenate((predictions_sj.mean(axis=0), predictions_iq.me
 
 print(f"MAE for San Juan: XGB: {mae_sj_xgb}, LGBM: {mae_sj_lgbm}, CAT: {mae_sj_cat}, MAE for Iquitos: {mae_iq_xgb}, LGBM: {mae_iq_lgbm}, CAT: {mae_iq_cat}")
 
-predictions = predictions_xgb #(predictions_xgb + predictions_lgbm + + predictions_cat) / 3
+predictions = (predictions_xgb + predictions_lgbm + + predictions_cat) / 3 #predictions_xgb
 
 submission_df['total_cases'] = predictions
 

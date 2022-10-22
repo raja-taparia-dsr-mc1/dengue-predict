@@ -15,6 +15,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.model_selection import cross_val_predict, cross_validate
 from sklearn.metrics import mean_absolute_error
 import lightgbm as lgb
+from sklearn.svm import SVR
 
 def pipeline_for_submission(X: pd.DataFrame, y: pd.DataFrame, X_test: pd.DataFrame, categorical_vars: list):
 
@@ -24,11 +25,13 @@ def pipeline_for_submission(X: pd.DataFrame, y: pd.DataFrame, X_test: pd.DataFra
             ('encodings', OneHotEncoder(), categorical_vars)
             ])
 
-    estimator = lgb.LGBMRegressor(learning_rate=0.05,n_estimators=100,max_depth=5,num_leaves=10, random_state=42,min_data_in_leaf=5)
+    #estimator = lgb.LGBMRegressor(learning_rate=0.05,n_estimators=100,max_depth=5,num_leaves=10, random_state=42,min_data_in_leaf=5)
+    estimator = SVR( kernel='rbf', epsilon = 0.2, C=2)
     
     pipe = Pipeline([('preprocessing', preprocessor),('estimator', estimator)]).fit(X,y)
     
     predictions = pipe.predict(X_test)
+    #predictions = np.exp(predictions)-1
     
     #preds = cross_val_predict(pipe, X, y)
     #mae = mean_absolute_error(y,preds)
